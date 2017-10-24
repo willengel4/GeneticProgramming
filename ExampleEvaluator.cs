@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+
+namespace GeneticProgramming
+{
+	public class ExampleEvaluator : Evaluator
+	{
+		private List<double> x1s;
+		private List<double> x2s;
+		private List<double> ys;
+		
+		public ExampleEvaluator()
+		{
+			x1s = new List<double>();
+			x2s = new List<double>();
+			ys = new List<double>();
+						
+			x1s.Add(4);
+			x2s.Add(3);
+			ys.Add(19);
+			
+			x1s.Add(2);
+			x2s.Add(3);
+			ys.Add(7);
+			
+			x1s.Add(7);
+			x2s.Add(10);
+			ys.Add(59);
+			
+			x1s.Add(1);
+			x2s.Add(10);
+			ys.Add(11);
+		}
+		
+		public override double evaluate(Expression e) 
+		{
+			e.synchVariables(e.getRoot());
+			
+			double totalError = 0.0;
+			
+			for(int i = 0; i < ys.Count; i++)
+			{
+				foreach(Variable v in e.getVariables())
+				{
+					if(v.getVariableId() == "x1")
+						v.setValue(x1s[i]);
+					else if(v.getVariableId() == "x2")
+						v.setValue(x2s[i]);
+				}
+				double prediction = e.getRoot().evaluate();
+				double err = Math.Abs(prediction - ys[i]);
+				totalError += err;
+			}
+			
+			if(totalError > 200)
+				totalError = 200;
+			
+			return totalError;
+		}
+	}
+}
+
