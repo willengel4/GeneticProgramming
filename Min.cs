@@ -2,29 +2,28 @@ namespace GeneticProgramming
 {
 	public class Min : Symbol
 	{
-		public override double evaluate() 
+		public override double Evaluate() 
 		{
-			double min = children.Count > 0 ? children[0].evaluate() : 0;
-			for(int i = 0; i < children.Count; i++)
-				if(children[i].evaluate() < min)
-					min = children[i].evaluate();
+			double min = Children.Count > 0 ? Children[0].Evaluate() : 0;
+			for(int i = 0; i < Children.Count; i++)
+				if(Children[i].Evaluate() < min)
+					min = Children[i].Evaluate();
 			return min;
 		}
 		
-		public override Symbol create()
+		public override Symbol Create()
 		{
 			return new Min();
 		}
 		
-		public override int getMinChildren()
+		public override int GetMinChildren()
 		{
 			return 2;
 		}
 		
-		public override string getSymbol()
+		public override string GetSymbol()
 		{
 			return "min ";
 		}
 	}
 }
-

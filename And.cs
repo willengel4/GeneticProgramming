@@ -2,25 +2,25 @@ namespace GeneticProgramming
 {
 	public class And : Symbol
 	{
-        public override double evaluate() 
+        public override double Evaluate() 
 		{
 			bool result = true;
-			foreach(Symbol s in children)
-				result = result && Helper.interpret(s.evaluate());
-			return Helper.interpret(result);
+			foreach(Symbol s in Children)
+				result = result && Helper.Interpret(s.Evaluate());
+			return Helper.Interpret(result);
 		}
 		
-		public override Symbol create()
+		public override Symbol Create()
 		{
 			return new And();
 		}
 		
-		public override int getMinChildren()
+		public override int GetMinChildren()
 		{
 			return 2;
 		}
 		
-		public override string getSymbol()
+		public override string GetSymbol()
 		{
 			return "and ";
 		}

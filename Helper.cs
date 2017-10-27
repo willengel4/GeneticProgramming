@@ -4,12 +4,12 @@ namespace GeneticProgramming
 {
 	public class Helper 
 	{
-		public static bool interpret(double d)
+		public static bool Interpret(double d)
 		{
 			return d > 0;
 		}
 		
-		public static double interpret(bool b)
+		public static double Interpret(bool b)
 		{
 			if(b)
 				return 1.0;

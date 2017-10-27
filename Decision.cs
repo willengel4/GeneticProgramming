@@ -10,31 +10,30 @@ namespace GeneticProgramming
 			this.numOptions = numOptions;
 		}
 		
-		public override double evaluate() 
+		public override double Evaluate() 
 		{
 			int maxIndex = 0;
 			
-			for(int i = 0; i < children.Count; i++)
-				if(children[i].evaluate() > children[maxIndex].evaluate())
+			for(int i = 0; i < Children.Count; i++)
+				if(Children[i].Evaluate() > Children[maxIndex].Evaluate())
 					maxIndex = i;
 			
 			return maxIndex;
 		}
 
-		public override Symbol create() 
+		public override Symbol Create() 
 		{
 			return new Decision(numOptions);
 		}
 
-		public override int getMinChildren() 
+		public override int GetMinChildren() 
 		{
 			return numOptions;
 		}
 
-		public override string getSymbol() 
+		public override string GetSymbol() 
 		{
 			return "decide ";
 		}
-
 	}
 }

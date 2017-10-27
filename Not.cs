@@ -2,25 +2,24 @@ namespace GeneticProgramming
 {
 	public class Not : Symbol
 	{
-		public override double evaluate() 
+		public override double Evaluate() 
 		{
-			return Helper.interpret(!Helper.interpret(children[0].evaluate()));
+			return Helper.Interpret(!Helper.Interpret(Children[0].Evaluate()));
 		}
 
-		public override Symbol create() 
+		public override Symbol Create() 
 		{
 			return new Not();
 		}
 
-		public override int getMinChildren() 
+		public override int GetMinChildren() 
 		{
 			return 1;
 		}
 
-		public override string getSymbol() 
+		public override string GetSymbol() 
 		{
 			return "not ";
 		}
 	}
 }
-

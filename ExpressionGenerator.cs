@@ -8,8 +8,8 @@ namespace GeneticProgramming
 		private List<Terminal> terminalSet;
 		private int maxDepth;
 		private int currentId;
-		
-		public ExpressionGenerator()
+
+        public ExpressionGenerator()
 		{
 			functionSet = new List<Symbol>();
 			terminalSet = new List<Terminal>();
@@ -17,24 +17,24 @@ namespace GeneticProgramming
 			currentId = 0;
 		}
 		
-		public Expression generateSymbolicExpression(Symbol specificRoot)
+		public Expression GenerateSymbolicExpression(Symbol specificRoot)
 		{
 			currentId = 0;
-			specificRoot.setId(currentId++);
-			create(specificRoot, 1);
+			specificRoot.Id = currentId++;
+			Create(specificRoot, 1);
 			return new Expression(specificRoot, currentId);
 		}
 		
-		public Expression generateSymbolicExpression()
+		public Expression GenerateSymbolicExpression()
 		{
 			int randomIndex = Helper.random.Next(functionSet.Count);
-			Symbol root = functionSet[randomIndex].create();				
-			return generateSymbolicExpression(root);
+			Symbol root = functionSet[randomIndex].Create();				
+			return GenerateSymbolicExpression(root);
 		}
 		
-		public void create(Symbol r, int depth)
+		public void Create(Symbol r, int depth)
 		{
-			for(int i = 0; i < r.getMinChildren(); i++)
+			for(int i = 0; i < r.GetMinChildren(); i++)
 			{
 				int randomIndex;
 				if(depth < maxDepth)
@@ -44,48 +44,26 @@ namespace GeneticProgramming
 				
 				if(randomIndex < functionSet.Count && depth < maxDepth)
 				{
-					Symbol child = functionSet[randomIndex].create();
-					child.setId(currentId++);
-					child.setParent(r);
-					r.addSymbol(child);
-					create(child, depth + 1);
+					Symbol child = functionSet[randomIndex].Create();
+					child.Id = currentId++;
+					child.Parent = r;
+					r.Children.Add(child);
+					Create(child, depth + 1);
 				}
 				else
 				{
 					int termIndex = randomIndex - functionSet.Count;
-					Terminal t = (Terminal)terminalSet[termIndex].create();
-					t.setParent(r);
-					t.setId(currentId++);
-					r.addSymbol(t);
+					Terminal t = (Terminal)terminalSet[termIndex].Create();
+					t.Parent = r;
+					t.Id = currentId++;
+					r.Children.Add(t);
 				}
 			}
 		}
-		
-		public void addToFunctionSet(Symbol f)
-		{
-			functionSet.Add(f);
-		}
-		
-		public void addToTerminalSet(Terminal t)
-		{
-			terminalSet.Add(t);
-		}
-		
-		public void setMaxDepth(int m)
-		{
-			maxDepth = m;
-		}
-		
-		public int getMaxDepth()
-		{
-			return maxDepth;
-		}
-		
-		public int getNumSymbols()
-		{
-			return currentId;
-		}
+
+		public List<Symbol> FunctionSet { get => functionSet; set => functionSet = value; }
+        public List<Terminal> TerminalSet { get => terminalSet; set => terminalSet = value; }
+        public int MaxDepth { get => maxDepth; set => maxDepth = value; }
+        public int CurrentId { get => currentId; set => currentId = value; }
 	}
-
 }
-

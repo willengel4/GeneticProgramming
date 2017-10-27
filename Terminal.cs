@@ -3,41 +3,32 @@ namespace GeneticProgramming
 	public class Terminal : Symbol
 	{
 		private double value;
-		
-		public Terminal(double value)
+
+        public Terminal(double value)
 		{
 			this.value = value;
 		}
 		
-		public override double evaluate()
+		public override double Evaluate()
 		{
 			return value;
 		}
 		
-		/* Terminals should be shallow copied */
-		public override Symbol create()
+		public override Symbol Create()
 		{
 			return new Terminal(value);
 		}
 		
-		public override int getMinChildren()
+		public override int GetMinChildren()
 		{
 			return 0;
 		}
 		
-		public override string getSymbol()
+		public override string GetSymbol()
 		{
 			return value +"";
 		}
-		
-		public void setValue(double value)
-		{
-			this.value = value;
-		}
-		
-		public double getValue()
-		{
-			return value;
-		}
+
+		public double Value { get => value; set => this.value = value; }
 	}
 }

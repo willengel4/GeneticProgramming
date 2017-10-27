@@ -12,46 +12,46 @@ namespace GeneticProgramming
 		private int pCopy = 1;
 		private int pCrossover = 9;
 		private Genome populationBest;
-		
-		public Population(Evaluator evaluator, ExpressionGenerator expGen, int numGenomes)
+
+        public Population(Evaluator evaluator, ExpressionGenerator expGen, int numGenomes)
 		{
 			this.evaluator = evaluator;
 			this.generator = expGen;
 			this.numGenomes = numGenomes;
 			this.genomes = new List<Genome>();
-			createPopulation();
+			CreatePopulation();
 		}
 		
-		public void createPopulation()
+		public void CreatePopulation()
 		{
 			for(int i = 0; i < numGenomes; i++)
-				genomes.Add(new Genome(generator.generateSymbolicExpression()));
+				genomes.Add(new Genome(generator.GenerateSymbolicExpression()));
 		}
 		
-		public void evaluatePopulation()
+		public void EvaluatePopulation()
 		{
 			double maxFitness = -1;
 			
 			foreach(Genome g in genomes)
 			{
-				g.setFitness(evaluator.evaluate(g.getExpression()));
+				g.Fitness = evaluator.Evaluate(g.Expression);
 				
-				if(g.getFitness() > maxFitness)
-					maxFitness = g.getFitness();
+				if(g.Fitness > maxFitness)
+					maxFitness = g.Fitness;
 			}
 			
 			foreach(Genome g in genomes)
 			{
-				g.setFitness(maxFitness - g.getFitness());
+				g.Fitness = maxFitness - g.Fitness;
 
-				if(populationBest == null || g.getFitness() > populationBest.getFitness())
+				if(populationBest == null || g.Fitness > populationBest.Fitness)
 					populationBest = g;
 			}
 		}
 		
-		public Population createNextGeneration()
+		public Population CreateNextGeneration()
 		{
-			evaluatePopulation();
+			EvaluatePopulation();
 			
 			Population nextGeneration = new Population(evaluator, generator, numGenomes);
 			
@@ -61,18 +61,18 @@ namespace GeneticProgramming
 				
 				if(lotto < pCopy)
 				{
-					nextGeneration.addGenome(selectGenome().copy());
+					nextGeneration.Genomes.Add(SelectGenome().Copy());
 				}
 				else
 				{
-					Genome g1 = selectGenome();
-					Genome g2 = selectGenome();
+					Genome g1 = SelectGenome();
+					Genome g2 = SelectGenome();
 					
-					CrossoverHandler crossoverHandler = new CrossoverHandler(g1.getExpression(), g2.getExpression());
-					crossoverHandler.performCrossover();
+					CrossoverHandler crossoverHandler = new CrossoverHandler(g1.Expression, g2.Expression);
+					crossoverHandler.PerformCrossover();
 					
-					nextGeneration.addGenome(new Genome(crossoverHandler.getOffspring1()));
-					nextGeneration.addGenome(new Genome(crossoverHandler.getOffspring2()));
+					nextGeneration.Genomes.Add(new Genome(crossoverHandler.Offspring1));
+					nextGeneration.Genomes.Add(new Genome(crossoverHandler.Offspring2));
 
 					i++;	
 				}			
@@ -81,18 +81,18 @@ namespace GeneticProgramming
 			return nextGeneration;
 		}
 		
-		private Genome selectGenome()
+		private Genome SelectGenome()
 		{
 			double fitnessSum = 0.0;
 			for(int i = 0; i < genomes.Count; i++)
-				fitnessSum += genomes[i].getFitness();
+				fitnessSum += genomes[i].Fitness;
 			
 			double lotto = Helper.random.NextDouble() * fitnessSum;
 			double lo = 0.0, hi = 0.0;
 					
 			for(int i = 0; i < genomes.Count; i++)
 			{
-				hi = lo + genomes[i].getFitness();
+				hi = lo + genomes[i].Fitness;
 							
 				if(lotto <= hi)
 					return genomes[i];
@@ -102,17 +102,8 @@ namespace GeneticProgramming
 			
 			return null;
 		}
-		
-		public Genome getBestGenome()
-		{
-			return populationBest;
-		}
-		
-		public void addGenome(Genome g)
-		{
-			genomes.Add(g);
-		}
+
+		public Genome PopulationBest { get => populationBest; set => populationBest = value; }
+        public List<Genome> Genomes { get => genomes; set => genomes = value; }
 	}
 }
-
-

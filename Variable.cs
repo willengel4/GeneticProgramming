@@ -5,37 +5,28 @@ namespace GeneticProgramming
 		private string variableId;
 		private Evaluator evaluator;
 
-		public Variable(double value, string variableId, Evaluator evaluator) 
+        public Variable(double value, string variableId, Evaluator evaluator) 
 			: base(value)
 		{
 			this.variableId = variableId;
 			this.evaluator = evaluator;
 		}
+		
+		public override double Evaluate()
+		{
+			return evaluator.GetVariableValue(variableId);
+		}
+		
+		public override Symbol Create()
+		{
+			return new Variable(Value, variableId, evaluator);
+		}
+		
+		public override string GetSymbol()
+		{
+			return variableId + "";
+		}
 
-        public void setVariableId(string variableId)
-		{
-			this.variableId = variableId;
-		}
-		
-		public override double evaluate()
-		{
-			return evaluator.getVariableValue(variableId);
-		}
-
-		public string getVariableId()
-		{
-			return variableId;
-		}
-		
-		public override Symbol create()
-		{
-			return new Variable(getValue(), variableId, evaluator);
-		}
-		
-		public override string getSymbol()
-		{
-			return variableId +"";
-		}
+		public string VariableId { get => variableId; set => variableId = value; }
 	}
 }
-

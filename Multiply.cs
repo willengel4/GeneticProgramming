@@ -2,28 +2,27 @@ namespace GeneticProgramming
 {
 	public class Multiply : Symbol
 	{
-		public override double evaluate() 
+		public override double Evaluate() 
 		{
 			double product = 1.0;
-			foreach(Symbol s in children)
-				product *= s.evaluate();
+			foreach(Symbol s in Children)
+				product *= s.Evaluate();
 			return product;
 		}
 		
-		public override Symbol create()
+		public override Symbol Create()
 		{
 			return new Multiply();
 		}
 		
-		public override int getMinChildren()
+		public override int GetMinChildren()
 		{
 			return 2;
 		}
 		
-		public override string getSymbol()
+		public override string GetSymbol()
 		{
 			return "mult ";
 		}
 	}
 }
-

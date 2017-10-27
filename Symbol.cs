@@ -4,57 +4,47 @@ namespace GeneticProgramming
 {
 	public abstract class Symbol 
 	{
-		protected List<Symbol> children;
-		protected int id;
-		protected Symbol parent;
-		
-		public Symbol()
+        private List<Symbol> children;
+        private int id;
+        private Symbol parent;
+
+        public Symbol()
 		{
-			children = new List<Symbol>();
-			parent = null;
+			Children = new List<Symbol>();
+			Parent = null;
 		}
 		
-		public abstract double evaluate();
-		public abstract Symbol create();
-		public abstract int getMinChildren();
-		public abstract string getSymbol();
+		public abstract double Evaluate();
+		public abstract Symbol Create();
+		public abstract int GetMinChildren();
+		public abstract string GetSymbol();
 		
-		public List<Symbol> getChildren()
+		public Symbol Copy()
 		{
-			return children;
-		}
-		
-		public Symbol copy()
-		{
-			Symbol cpy = create();
-			cpy.setId(id);
+			Symbol cpy = Create();
+			cpy.Id = id;
 			
-			for(int i = 0; i < children.Count; i++)
+			for(int i = 0; i < Children.Count; i++)
 			{
-				Symbol newChild = children[i].copy();
-				cpy.addSymbol(newChild);
-				newChild.setParent(cpy);
+				Symbol newChild = Children[i].Copy();
+				cpy.Children.Add(newChild);
+				newChild.Parent = cpy;
 			}
 			
 			return cpy;
 		}
 		
-		public void addSymbol(Symbol s)
+		public string GetExpression()
 		{
-			children.Add(s);
-		}
-		
-		public string getExpression()
-		{
-			string expression = getSymbol();
-			if(children.Count > 0)
+			string expression = GetSymbol();
+			if(Children.Count > 0)
 			{
 				expression = "(" + expression;
-				for(int i = 0; i < children.Count; i++)
+				for(int i = 0; i < Children.Count; i++)
 				{
-					expression += children[i].getExpression();
+					expression += Children[i].GetExpression();
 					
-					if(i != children.Count - 1)
+					if(i != Children.Count - 1)
 						expression += " ";
 				}
 				expression = expression + ")";
@@ -62,26 +52,9 @@ namespace GeneticProgramming
 			
 			return expression;
 		}
-		
-		public void setId(int id)
-		{
-			this.id = id;
-		}
-		
-		public int getId()
-		{
-			return id;
-		}
-		
-		public Symbol getParent()
-		{
-			return parent;
-		}
-		
-		public void setParent(Symbol p)
-		{
-			this.parent = p;
-		}
-	}
-}
 
+		public List<Symbol> Children { get => children; set => children = value; }
+        public int Id { get => id; set => id = value; }
+        public Symbol Parent { get => parent; set => parent = value; }
+    }
+}

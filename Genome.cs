@@ -10,25 +10,13 @@ namespace GeneticProgramming
 			expression = e;
 			fitness = 0.0;
 		}
-		
-		public void setFitness(double f)
+
+        public Genome Copy()
 		{
-			fitness = f;
+			return new Genome(expression.Copy());
 		}
-		
-		public double getFitness()
-		{
-			return fitness;
-		}
-		
-		public Expression getExpression()
-		{
-			return expression;
-		}
-		
-		public Genome copy()
-		{
-			return new Genome(expression.copy());
-		}
+
+		public Expression Expression { get => expression; set => expression = value; }
+        public double Fitness { get => fitness; set => fitness = value; }
 	}
 }

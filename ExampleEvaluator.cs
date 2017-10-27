@@ -37,7 +37,7 @@ namespace GeneticProgramming
 			currentVariables.Add("x2", 0.0);
 		}
 		
-		public override double evaluate(Expression e) 
+		public override double Evaluate(Expression e) 
 		{			
 			double totalError = 0.0;
 			
@@ -46,7 +46,7 @@ namespace GeneticProgramming
 				currentVariables["x1"] = x1s[i];
 				currentVariables["x2"] = x2s[i];
 
-				double prediction = e.getRoot().evaluate();
+				double prediction = e.Root.Evaluate();
 				double err = Math.Abs(prediction - ys[i]);
 				totalError += err;
 			}
@@ -57,7 +57,7 @@ namespace GeneticProgramming
 			return totalError;
 		}
 
-		public override double getVariableValue(string variableId)
+		public override double GetVariableValue(string variableId)
 		{
 			return currentVariables[variableId];
 		}

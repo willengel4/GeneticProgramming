@@ -2,28 +2,27 @@ namespace GeneticProgramming
 {
 	public class Add : Symbol
 	{
-		public override double evaluate() 
+		public override double Evaluate() 
 		{
 			double sum = 0.0;
-			foreach(Symbol s in getChildren())
-				sum += s.evaluate();		
+			foreach(Symbol s in Children)
+				sum += s.Evaluate();		
 			return sum;
 		}
 		
-		public override Symbol create()
+		public override Symbol Create()
 		{
 			return new Add();
 		}
 		
-		public override int getMinChildren()
+		public override int GetMinChildren()
 		{
 			return 2;
 		}
 		
-		public override string getSymbol()
+		public override string GetSymbol()
 		{
 			return "add ";
 		}
 	}
 }
-

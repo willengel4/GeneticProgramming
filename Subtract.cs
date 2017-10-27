@@ -6,22 +6,22 @@ namespace GeneticProgramming
         {
         }
 
-        public override double evaluate()
+        public override double Evaluate()
 		{
-			return children[0].evaluate() - children[1].evaluate();
+			return Children[0].Evaluate() - Children[1].Evaluate();
 		}
 		
-		public override Symbol create()
+		public override Symbol Create()
 		{
 			return new Subtract();
 		}
 		
-		public override int getMinChildren()
+		public override int GetMinChildren()
 		{
 			return 2;
 		}
 		
-		public override string getSymbol()
+		public override string GetSymbol()
 		{
 			return "sub ";
 		}

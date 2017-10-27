@@ -6,57 +6,42 @@ namespace GeneticProgramming
 	{
 		private Symbol root;
 		private int numSymbols;
-		
-		public Expression(Symbol root, int numSymbols)
+
+        public Expression(Symbol root, int numSymbols)
 		{
-			this.root = root;
-			this.numSymbols = numSymbols;
+			this.Root = root;
+			this.NumSymbols = numSymbols;
 		}
 		
-		private void iterateAndCount(Symbol node)
+		private void IterateAndCount(Symbol node)
 		{
-			node.setId(numSymbols++);
-			foreach(Symbol c in node.getChildren())
-				iterateAndCount(c);
+			node.Id = NumSymbols++;
+			foreach(Symbol c in node.Children)
+				IterateAndCount(c);
 		}
 		
-		public void synchIds()
+		public void SynchIds()
 		{
-			numSymbols = 0;
-			iterateAndCount(root);
+			NumSymbols = 0;
+			IterateAndCount(Root);
 		}
 		
-		public Symbol getRoot()
+		public Expression Copy()
 		{
-			return root;
+			Symbol copyRoot = Root.Copy();
+			return new Expression(copyRoot, NumSymbols);
 		}
 		
-		public int getNumSymbols()
+		public Symbol FindSymbolWithId(Symbol r, int id)
 		{
-			return numSymbols;
-		}
-		
-		public Expression copy()
-		{
-			Symbol copyRoot = root.copy();
-			return new Expression(copyRoot, numSymbols);
-		}
-		
-		public void setRoot(Symbol r)
-		{
-			this.root = r;
-		}
-		
-		public Symbol findSymbolWithId(Symbol r, int id)
-		{
-			if(r.getId() == id)
+			if(r.Id == id)
 				return r;
 			
-			if(r.getChildren().Count > 0)
+			if(r.Children.Count > 0)
 			{
-				foreach(Symbol s in r.getChildren())
+				foreach(Symbol s in r.Children)
 				{
-					Symbol searchResult = findSymbolWithId(s, id);
+					Symbol searchResult = FindSymbolWithId(s, id);
 					
 					if(searchResult != null)
 						return searchResult;
@@ -65,5 +50,8 @@ namespace GeneticProgramming
 			
 			return null;
 		}
-	}
+
+		public Symbol Root { get => root; set => root = value; }
+        public int NumSymbols { get => numSymbols; set => numSymbols = value; }
+    }
 }

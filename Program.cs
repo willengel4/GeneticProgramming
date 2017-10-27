@@ -12,34 +12,33 @@ namespace GeneticProgramming
             Variable x2 = new Variable(10, "x2", evaluator);
                     
             ExpressionGenerator generator = new ExpressionGenerator();
-            generator.setMaxDepth(5);
-            generator.addToFunctionSet(new Add());
-            generator.addToFunctionSet(new Multiply());
-            generator.addToFunctionSet(new Average());
-            generator.addToFunctionSet(new Decision(4));
-            generator.addToFunctionSet(new Max());
+            generator.MaxDepth = 5;
+            generator.FunctionSet.Add(new Add()); 
+            generator.FunctionSet.Add(new Multiply());
+            generator.FunctionSet.Add(new Average());
+            generator.FunctionSet.Add(new Decision(4));
+            generator.FunctionSet.Add(new Max());
 
-            generator.addToTerminalSet(x1);
-            generator.addToTerminalSet(x2);
-            
+            generator.TerminalSet.Add(x1);
+            generator.TerminalSet.Add(x2);
             
             Genome bestGenome = null;
-            Population currentPopulation = new Population(evaluator, generator, 50);
+            Population currentPopulation = new Population(evaluator, generator, 100);
         
-            for(int i = 0; i < 20; i++)
+            for(int i = 0; i < 50; i++)
             {
-                Population next = currentPopulation.createNextGeneration();
+                Population next = currentPopulation.CreateNextGeneration();
 
-                if(bestGenome == null || currentPopulation.getBestGenome().getFitness() > bestGenome.getFitness())
-                    bestGenome = currentPopulation.getBestGenome();
+                if(bestGenome == null || currentPopulation.PopulationBest.Fitness > bestGenome.Fitness)
+                    bestGenome = currentPopulation.PopulationBest;
                 
-                Console.WriteLine("Best Fitness: " + bestGenome.getFitness());
+                Console.WriteLine("Best Fitness: " + bestGenome.Fitness);
                 
                 currentPopulation = next;
             }
             
-            Console.WriteLine(bestGenome.getExpression().getRoot().getExpression());
-            Console.WriteLine("Best Error: " + evaluator.evaluate(bestGenome.getExpression()));
+            Console.WriteLine(bestGenome.Expression.Root.GetExpression());
+            Console.WriteLine("Best Error: " + evaluator.Evaluate(bestGenome.Expression));
         }
     }
 }
