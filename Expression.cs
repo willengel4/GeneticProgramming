@@ -28,8 +28,7 @@ namespace GeneticProgramming
 		
 		public Expression Copy()
 		{
-			Symbol copyRoot = Root.Copy();
-			return new Expression(copyRoot, NumSymbols);
+			return new Expression(Root.Copy(), NumSymbols);
 		}
 		
 		public Symbol FindSymbolWithId(Symbol r, int id)

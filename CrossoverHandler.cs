@@ -12,7 +12,7 @@ namespace GeneticProgramming
 			this.Parent1 = parent1;
 			this.Parent2 = parent2;
 		}
-		
+
 		public void PerformCrossover()
 		{
 			Offspring1 = this.Parent1.Copy();
@@ -27,43 +27,21 @@ namespace GeneticProgramming
 			Symbol parent1 = subtree1.Parent;
 			Symbol parent2 = subtree2.Parent;
 			
-			if(parent1 == null && parent2 == null)
-			{
-			}
+			if(parent1 == null && parent2 == null) { }
 			else if(parent1 == null)
-			{			
+			{
 				Offspring1.Root = subtree2;
-				
-				int subtree2Index = -1;
-				for(int i = 0; i < parent2.Children.Count; i++)
-					if(parent2.Children[i] == subtree2)
-						subtree2Index = i;
-				parent2.Children[subtree2Index] =  subtree1;
+				parent2.ReplaceChild(subtree2, subtree1);
 			}
 			else if(parent2 == null)
 			{
 				Offspring2.Root = subtree1;
-				
-				int subtree1Index = -1;
-				for(int i = 0; i < parent1.Children.Count; i++)
-					if(parent1.Children[i] == subtree1)
-						subtree1Index = i;
-				parent1.Children[subtree1Index] = subtree2;
+				parent1.ReplaceChild(subtree1, subtree2);
 			}
 			else
-			{	
-				int subtree1Index = -1;
-				for(int i = 0; i < parent1.Children.Count; i++)
-					if(parent1.Children[i] == subtree1)
-						subtree1Index = i;
-				
-				int subtree2Index = -1;
-				for(int i = 0; i < parent2.Children.Count; i++)
-					if(parent2.Children[i] == subtree2)
-						subtree2Index = i;
-				
-				parent1.Children[subtree1Index] = subtree2;
-				parent2.Children[subtree2Index] = subtree1;
+			{
+				parent1.ReplaceChild(subtree1, subtree2);
+				parent2.ReplaceChild(subtree2, subtree1);
 			}
 			
 			Offspring1.SynchIds();

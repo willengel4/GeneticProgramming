@@ -53,6 +53,15 @@ namespace GeneticProgramming
 			return expression;
 		}
 
+		public void ReplaceChild(Symbol prevChild, Symbol newChild)
+		{
+			int subtreeIndex = -1;
+			for(int i = 0; i < Children.Count; i++)
+				if(Children[i] == prevChild)
+					subtreeIndex = i;
+			Children[subtreeIndex] = newChild;
+		}
+
 		public List<Symbol> Children { get => children; set => children = value; }
         public int Id { get => id; set => id = value; }
         public Symbol Parent { get => parent; set => parent = value; }
