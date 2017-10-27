@@ -8,7 +8,8 @@ namespace GeneticProgramming
 		private List<double> x1s;
 		private List<double> x2s;
 		private List<double> ys;
-		
+		private Dictionary<string, double> currentVariables;
+
 		public ExampleEvaluator()
 		{
 			x1s = new List<double>();
@@ -30,23 +31,21 @@ namespace GeneticProgramming
 			x1s.Add(1);
 			x2s.Add(10);
 			ys.Add(11);
+
+			currentVariables = new Dictionary<string, double>();
+			currentVariables.Add("x1", 0.0);
+			currentVariables.Add("x2", 0.0);
 		}
 		
 		public override double evaluate(Expression e) 
-		{
-			e.synchVariables(e.getRoot());
-			
+		{			
 			double totalError = 0.0;
 			
 			for(int i = 0; i < ys.Count; i++)
 			{
-				foreach(Variable v in e.getVariables())
-				{
-					if(v.getVariableId() == "x1")
-						v.setValue(x1s[i]);
-					else if(v.getVariableId() == "x2")
-						v.setValue(x2s[i]);
-				}
+				currentVariables["x1"] = x1s[i];
+				currentVariables["x2"] = x2s[i];
+
 				double prediction = e.getRoot().evaluate();
 				double err = Math.Abs(prediction - ys[i]);
 				totalError += err;
@@ -57,6 +56,10 @@ namespace GeneticProgramming
 			
 			return totalError;
 		}
+
+		public override double getVariableValue(string variableId)
+		{
+			return currentVariables[variableId];
+		}
 	}
 }
-

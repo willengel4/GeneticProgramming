@@ -6,9 +6,11 @@ namespace GeneticProgramming
     {
         static void Main(string[] args)
         {
-            Variable x1 = new Variable(4, "x1");
-            Variable x2 = new Variable(10, "x2");
+            ExampleEvaluator evaluator = new ExampleEvaluator();
 
+            Variable x1 = new Variable(4, "x1", evaluator);
+            Variable x2 = new Variable(10, "x2", evaluator);
+                    
             ExpressionGenerator generator = new ExpressionGenerator();
             generator.setMaxDepth(5);
             generator.addToFunctionSet(new Add());
@@ -20,12 +22,11 @@ namespace GeneticProgramming
             generator.addToTerminalSet(x1);
             generator.addToTerminalSet(x2);
             
-            ExampleEvaluator evaluator = new ExampleEvaluator();
             
             Genome bestGenome = null;
-            Population currentPopulation = new Population(evaluator, generator, 15);
+            Population currentPopulation = new Population(evaluator, generator, 50);
         
-            for(int i = 0; i < 100; i++)
+            for(int i = 0; i < 20; i++)
             {
                 Population next = currentPopulation.createNextGeneration();
 
@@ -38,7 +39,6 @@ namespace GeneticProgramming
             }
             
             Console.WriteLine(bestGenome.getExpression().getRoot().getExpression());
-            
             Console.WriteLine("Best Error: " + evaluator.evaluate(bestGenome.getExpression()));
         }
     }

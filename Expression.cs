@@ -6,22 +6,11 @@ namespace GeneticProgramming
 	{
 		private Symbol root;
 		private int numSymbols;
-		private List<Variable> variables;
 		
 		public Expression(Symbol root, int numSymbols)
 		{
 			this.root = root;
 			this.numSymbols = numSymbols;
-			variables = new List<Variable>();
-		}
-		
-		public void synchVariables(Symbol r)
-		{
-			if(r.GetType() == typeof(Variable))
-				variables.Add((Variable)r);
-			
-			foreach(Symbol c in r.getChildren())
-				synchVariables(c);
 		}
 		
 		private void iterateAndCount(Symbol node)
@@ -75,11 +64,6 @@ namespace GeneticProgramming
 			}
 			
 			return null;
-		}
-		
-		public List<Variable> getVariables()
-		{
-			return variables;
 		}
 	}
 }
