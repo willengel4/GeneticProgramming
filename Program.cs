@@ -6,6 +6,7 @@ namespace GeneticProgramming
     {
         static void Main(string[] args)
         {
+            
             ExampleEvaluator evaluator = new ExampleEvaluator();
 
             Variable x1 = new Variable(4, "x1", evaluator);
