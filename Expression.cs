@@ -7,28 +7,31 @@ namespace GeneticProgramming
 		private Symbol root;
 		private int numSymbols;
 
-        public Expression(Symbol root, int numSymbols)
+        public Expression(Symbol root)
 		{
 			this.Root = root;
 			this.NumSymbols = numSymbols;
-		}
-		
-		private void IterateAndCount(Symbol node)
-		{
-			node.Id = NumSymbols++;
-			foreach(Symbol c in node.Children)
-				IterateAndCount(c);
+			SynchIds();
 		}
 		
 		public void SynchIds()
 		{
-			NumSymbols = 0;
-			IterateAndCount(Root);
+			numSymbols = 0;
+			Queue<Symbol> searchQueue = new Queue<Symbol>();
+			searchQueue.Enqueue(root);
+			Symbol currSymbol;
+
+			while(searchQueue.TryDequeue(out currSymbol))
+			{
+				currSymbol.Id = numSymbols++;
+				foreach(Symbol s in currSymbol.Children)
+					searchQueue.Enqueue(s);
+			}
 		}
 		
 		public Expression Copy()
 		{
-			return new Expression(Root.Copy(), NumSymbols);
+			return new Expression(Root.Copy());
 		}
 		
 		public Symbol FindSymbolWithId(Symbol r, int id)
