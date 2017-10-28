@@ -33,25 +33,6 @@ namespace GeneticProgramming
 		{
 			return new Expression(Root.Copy());
 		}
-		
-		public Symbol FindSymbolWithId(Symbol r, int id)
-		{
-			if(r.Id == id)
-				return r;
-			
-			if(r.Children.Count > 0)
-			{
-				foreach(Symbol s in r.Children)
-				{
-					Symbol searchResult = FindSymbolWithId(s, id);
-					
-					if(searchResult != null)
-						return searchResult;
-				}
-			}
-			
-			return null;
-		}
 
 		public Symbol Root { get => root; set => root = value; }
         public int NumSymbols { get => numSymbols; set => numSymbols = value; }

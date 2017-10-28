@@ -62,6 +62,21 @@ namespace GeneticProgramming
 			Children[subtreeIndex] = newChild;
 		}
 
+		public Symbol FindSymbolWithId(int searchId)
+		{
+			if(this.id == searchId)
+				return this;
+			
+			foreach(Symbol s in children)
+			{
+				Symbol searchResult = s.FindSymbolWithId(searchId);
+				if(searchResult != null)
+					return searchResult;
+			}
+			
+			return null;
+		}
+
 		public List<Symbol> Children { get => children; set => children = value; }
         public int Id { get => id; set => id = value; }
         public Symbol Parent { get => parent; set => parent = value; }

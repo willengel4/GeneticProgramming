@@ -12,7 +12,7 @@ namespace GeneticProgramming
 		{
 			functionSet = new List<Symbol>();
 			terminalSet = new List<Terminal>();
-			maxDepth = 10;
+			maxDepth = 5;
 		}
 		
 		public Expression GenerateSymbolicExpression(Symbol specificRoot)
