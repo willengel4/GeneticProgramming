@@ -6,19 +6,35 @@ namespace GeneticProgramming
 	{
 		private List<Symbol> functionSet;
 		private List<Terminal> terminalSet;
+		private List<Symbol> combinedSet;
 		private int maxDepth;
 
         public ExpressionGenerator()
 		{
 			functionSet = new List<Symbol>();
 			terminalSet = new List<Terminal>();
-			maxDepth = 5;
+			combinedSet = new List<Symbol>();
+			maxDepth = 4;
 		}
 		
 		public Expression GenerateSymbolicExpression(Symbol specificRoot)
 		{
 			Create(specificRoot, 1);
 			Expression exp = new Expression(specificRoot);
+			return exp;
+		}
+
+		public Expression GenerateDecisionMaker(int numDecisions)
+		{
+			Decision d = new Decision(numDecisions);
+
+			for(int i = 0; i < numDecisions; i++)
+				d.Children.Add(new PlaceHolder());
+
+			foreach(PlaceHolder ph in d.Children)
+				Create(ph, 3);
+			
+			Expression exp = new Expression(d);
 			return exp;
 		}
 		
@@ -29,33 +45,55 @@ namespace GeneticProgramming
 		
 		public void Create(Symbol r, int depth)
 		{
+			if(r.GetType() == typeof(Terminal) || depth > maxDepth)
+				return;
+
 			for(int i = 0; i < r.GetMinChildren(); i++)
 			{
-				int randomIndex;
-				if(depth < maxDepth)
-					randomIndex = Helper.random.Next(functionSet.Count + terminalSet.Count);
-				else
-					randomIndex = Helper.random.Next(terminalSet.Count) + functionSet.Count;
-				
-				if(randomIndex < functionSet.Count && depth < maxDepth)
-				{
-					Symbol child = functionSet[randomIndex].Create();
-					child.Parent = r;
-					r.Children.Add(child);
-					Create(child, depth + 1);
-				}
-				else
-				{
-					int termIndex = randomIndex - functionSet.Count;
-					Terminal t = (Terminal)terminalSet[termIndex].Create();
-					t.Parent = r;
-					r.Children.Add(t);
-				}
+				Symbol newSymbol = ChooseASymbol(r, depth);
+				newSymbol.Parent = r;
+				r.Children.Add(newSymbol);
+				Create(newSymbol, depth + 1);
 			}
 		}
 
-		public List<Symbol> FunctionSet { get => functionSet; set => functionSet = value; }
-        public List<Terminal> TerminalSet { get => terminalSet; set => terminalSet = value; }
+		private Symbol ChooseASymbol(Symbol r, int depth)
+		{
+			if(depth == maxDepth)
+			{
+				int randomIndex = Helper.random.Next(terminalSet.Count + 1);
+				Symbol newSymbol = randomIndex < terminalSet.Count ? terminalSet[randomIndex].Create() : r.CreateEphemeral();
+				return newSymbol;
+			}
+			else
+			{
+				int randomIndex = Helper.random.Next(combinedSet.Count + 1);
+				Symbol newSymbol = randomIndex < combinedSet.Count ? combinedSet[randomIndex].Create() : r.CreateEphemeral();
+				return newSymbol;
+			}		
+		}
+
+		public void AddFunction(Symbol f)
+		{
+			functionSet.Add(f);
+			SynchCombinedSet();
+		}
+
+		public void AddTerminal(Terminal t)
+		{
+			terminalSet.Add(t);
+			SynchCombinedSet();
+		}
+
+		public void SynchCombinedSet()
+		{
+			combinedSet.Clear();
+			foreach(Symbol s in functionSet)
+				combinedSet.Add(s);
+			foreach(Terminal t in terminalSet)
+				combinedSet.Add(t);
+		}
+
         public int MaxDepth { get => maxDepth; set => maxDepth = value; }
 	}
 }

@@ -1,6 +1,6 @@
 namespace GeneticProgramming
 {
-	public class Multiply : Symbol
+	public class Multiply : NumericalSymbol
 	{
 		public override double Evaluate() 
 		{

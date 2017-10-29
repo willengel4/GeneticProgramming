@@ -25,7 +25,7 @@ namespace GeneticProgramming
 		public void CreatePopulation()
 		{
 			for(int i = 0; i < numGenomes; i++)
-				genomes.Add(new Genome(generator.GenerateSymbolicExpression()));
+				genomes.Add(new Genome(generator.GenerateDecisionMaker(5)));
 		}
 		
 		public void EvaluatePopulation()

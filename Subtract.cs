@@ -1,6 +1,6 @@
 namespace GeneticProgramming
 {
-	public class Subtract : Symbol
+	public class Subtract : NumericalSymbol
 	{
         public Subtract()
         {

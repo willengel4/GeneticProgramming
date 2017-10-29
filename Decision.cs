@@ -1,6 +1,6 @@
 namespace GeneticProgramming
 {
-	public class Decision : Symbol
+	public class Decision : NumericalSymbol
 	{
 		private int numOptions;
 		

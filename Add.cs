@@ -1,6 +1,6 @@
 namespace GeneticProgramming
 {
-	public class Add : Symbol
+	public class Add : NumericalSymbol
 	{
 		public override double Evaluate() 
 		{

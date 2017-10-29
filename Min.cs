@@ -1,6 +1,6 @@
 namespace GeneticProgramming
 {
-	public class Min : Symbol
+	public class Min : NumericalSymbol
 	{
 		public override double Evaluate() 
 		{

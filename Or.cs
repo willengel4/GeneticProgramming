@@ -1,6 +1,6 @@
 namespace GeneticProgramming
 {
-	public class Or : Symbol
+	public class Or : LogicalSymbol
 	{
 		public override double Evaluate() 
 		{

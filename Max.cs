@@ -1,6 +1,6 @@
 namespace GeneticProgramming
 {
-	public class Max : Symbol
+	public class Max : NumericalSymbol
 	{
 		public override double Evaluate() 
 		{

@@ -18,8 +18,8 @@ namespace GeneticProgramming
 			Offspring1 = this.Parent1.Copy();
 			Offspring2 = this.Parent2.Copy();
 			
-			int crossoverPoint1 = Helper.random.Next(this.Parent1.NumSymbols);
-			int crossoverPoint2 = Helper.random.Next(this.Parent2.NumSymbols);
+			int crossoverPoint1 = Helper.random.Next(5, this.Parent1.NumSymbols);
+			int crossoverPoint2 = Helper.random.Next(5, this.Parent2.NumSymbols);
 			
 			Symbol subtree1 = Offspring1.Root.FindSymbolWithId(crossoverPoint1);
 			Symbol subtree2 = Offspring2.Root.FindSymbolWithId(crossoverPoint2);

@@ -29,6 +29,11 @@ namespace GeneticProgramming
 			return value +"";
 		}
 
+		public override Terminal CreateEphemeral()
+		{
+			return null;
+		}
+
 		public double Value { get => value; set => this.value = value; }
 	}
 }

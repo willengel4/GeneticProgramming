@@ -1,10 +1,15 @@
 namespace GeneticProgramming
 {
-	public class Average : Add
+	public class Average : NumericalSymbol
 	{
 		public override double Evaluate() 
 		{
-			return base.Evaluate() / Children.Count;
+			double sum = 0;
+
+			foreach(Symbol s in Children)
+				sum += s.Evaluate();
+
+			return sum / Children.Count;
 		}
 		
 		public override Symbol Create()

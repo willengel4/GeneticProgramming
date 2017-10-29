@@ -13,19 +13,19 @@ namespace GeneticProgramming
                     
             ExpressionGenerator generator = new ExpressionGenerator();
             generator.MaxDepth = 5;
-            generator.FunctionSet.Add(new Add()); 
-            generator.FunctionSet.Add(new Multiply());
-            generator.FunctionSet.Add(new Average());
-            generator.FunctionSet.Add(new Decision(4));
-            generator.FunctionSet.Add(new Max());
+            generator.AddFunction(new Add()); 
+            generator.AddFunction(new Multiply());
+            generator.AddFunction(new Average());
+            generator.AddFunction(new Decision(4));
+            generator.AddFunction(new Max());
 
-            generator.TerminalSet.Add(x1);
-            generator.TerminalSet.Add(x2);
+            generator.AddTerminal(x1);
+            generator.AddTerminal(x2);
             
             Genome bestGenome = null;
             Population currentPopulation = new Population(evaluator, generator, 100);
-        
-            for(int i = 0; i < 50; i++)
+
+            for(int i = 0; i < 100; i++)
             {
                 Population next = currentPopulation.CreateNextGeneration();
 

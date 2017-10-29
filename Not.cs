@@ -1,6 +1,6 @@
 namespace GeneticProgramming
 {
-	public class Not : Symbol
+	public class Not : LogicalSymbol
 	{
 		public override double Evaluate() 
 		{

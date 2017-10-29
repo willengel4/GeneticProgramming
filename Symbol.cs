@@ -18,7 +18,8 @@ namespace GeneticProgramming
 		public abstract Symbol Create();
 		public abstract int GetMinChildren();
 		public abstract string GetSymbol();
-		
+		public abstract Terminal CreateEphemeral();
+
 		public Symbol Copy()
 		{
 			Symbol cpy = Create();
